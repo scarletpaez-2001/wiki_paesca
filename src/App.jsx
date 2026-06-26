@@ -1,5 +1,15 @@
 import { useState } from 'react';
-import { Server, Network, Shield, Users, Key, Terminal, Home, BookOpen } from 'lucide-react';
+import {
+  BookOpen,
+  Home,
+  Key,
+  Network,
+  Server,
+  Shield,
+  Terminal,
+  Users,
+} from 'lucide-react';
+
 import Inicio from './components/Inicio';
 import ConfiguracionBasica from './components/ConfiguracionBasica';
 import ActiveDirectory from './components/ActiveDirectory';
@@ -16,44 +26,44 @@ function App() {
       id: 'inicio',
       nombre: 'Inicio',
       icono: Home,
-      subtitulo: 'Portada y topología'
+      subtitulo: 'Portada y topología',
     },
     {
       id: 'basica',
       nombre: '2.1.1 Configuración Básica',
       icono: Server,
-      subtitulo: 'Servidor SRV-DC01'
+      subtitulo: 'Servidor SRV-DC01',
     },
     {
       id: 'activedirectory',
       nombre: '2.1.2 Active Directory',
       icono: Users,
-      subtitulo: 'Dominio inacap.local'
+      subtitulo: 'Dominio inacap.local',
     },
     {
       id: 'cliente',
       nombre: '2.1.3 Cliente Dominio',
       icono: Shield,
-      subtitulo: 'Unión de PC01'
+      subtitulo: 'Unión de PC01',
     },
     {
       id: 'servicios',
       nombre: '2.1.4 Servicios de Red',
       icono: Network,
-      subtitulo: 'DNS y DHCP'
+      subtitulo: 'DNS y DHCP',
     },
     {
       id: 'gpo',
       nombre: '2.1.5 Políticas de Grupo',
       icono: Key,
-      subtitulo: 'Gestión de GPO'
+      subtitulo: 'GPO',
     },
     {
       id: 'bitacora',
       nombre: 'Bitácora de IA',
       icono: BookOpen,
-      subtitulo: 'Prompts utilizados'
-    }
+      subtitulo: 'Prompts utilizados',
+    },
   ];
 
   const renderizarContenido = () => {
@@ -77,94 +87,85 @@ function App() {
     }
   };
 
-  const seccionActualObj = secciones.find(s => s.id === seccionActiva);
+  const seccionActual = secciones.find((item) => item.id === seccionActiva);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-      {/* Barra superior */}
-      <header className="bg-slate-900 border-b border-purple-900/30 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-50 border-b border-purple-900/30 bg-slate-900/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <Terminal className="w-8 h-8 text-purple-400" strokeWidth={2} />
+            <Terminal className="h-8 w-8 text-purple-400" strokeWidth={2} />
             <div>
               <h1 className="text-2xl font-bold text-purple-300">Wiki PAESCA</h1>
               <p className="text-sm text-slate-400">Sistemas Operativos</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-slate-400">Módulo:</p>
-            <p className="text-lg font-semibold text-purple-300">{seccionActualObj?.nombre}</p>
+            <p className="text-sm text-slate-400">Sección activa</p>
+            <p className="text-lg font-semibold text-purple-300">{seccionActual?.nombre}</p>
           </div>
         </div>
       </header>
 
       <div className="flex">
-        {/* Menú Lateral */}
-        <nav className="w-72 bg-slate-900 border-r border-purple-900/30 min-h-screen p-6 sticky top-20">
+        <nav className="sticky top-20 hidden min-h-screen w-72 border-r border-purple-900/30 bg-slate-900/70 p-6 lg:block">
           <div className="space-y-3">
             {secciones.map((seccion) => {
-              const IconoSeccion = seccion.icono;
-              const esActivo = seccionActiva === seccion.id;
-              
+              const Icono = seccion.icono;
+              const activo = seccionActiva === seccion.id;
+
               return (
                 <button
                   key={seccion.id}
+                  type="button"
                   onClick={() => setSeccionActiva(seccion.id)}
-                  className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center gap-3 group ${
-                    esActivo
-                      ? 'bg-purple-900/50 border border-purple-500 shadow-lg shadow-purple-500/20'
-                      : 'hover:bg-purple-900/30 border border-transparent hover:border-purple-600/30'
+                  className={`flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-all duration-200 ${
+                    activo
+                      ? 'border-purple-500 bg-purple-900/50 shadow-lg shadow-purple-500/20'
+                      : 'border-transparent bg-slate-900/40 hover:border-purple-600/30 hover:bg-purple-900/30'
                   }`}
                 >
-                  <IconoSeccion className={`w-5 h-5 flex-shrink-0 transition-colors ${
-                    esActivo ? 'text-purple-300' : 'text-purple-400 group-hover:text-purple-300'
-                  }`} strokeWidth={2} />
-                  <div className="flex-1 min-w-0">
-                    <p className={`font-semibold text-sm ${
-                      esActivo ? 'text-purple-200' : 'text-slate-200 group-hover:text-purple-300'
-                    }`}>
+                  <Icono
+                    className={`h-5 w-5 flex-shrink-0 ${
+                      activo ? 'text-purple-300' : 'text-purple-400 group-hover:text-purple-300'
+                    }`}
+                    strokeWidth={2}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className={`text-sm font-semibold ${activo ? 'text-purple-200' : 'text-slate-200'}`}>
                       {seccion.nombre}
                     </p>
-                    <p className="text-xs text-slate-500 truncate">{seccion.subtitulo}</p>
+                    <p className="truncate text-xs text-slate-500">{seccion.subtitulo}</p>
                   </div>
                 </button>
               );
             })}
           </div>
 
-          {/* Información en el pie del menú */}
-          <div className="mt-12 pt-6 border-t border-purple-900/30">
-            <p className="text-xs text-slate-500 text-center">
-              <span className="block font-semibold text-purple-400 mb-2">IP Servidor</span>
-              192.168.10.10
-            </p>
-            <p className="text-xs text-slate-500 text-center mt-4">
-              <span className="block font-semibold text-purple-400 mb-2">Dominio</span>
-              inacap.local
-            </p>
+          <div className="mt-12 border-t border-purple-900/30 pt-6 text-center text-xs text-slate-500">
+            <p className="mb-2 font-semibold text-purple-400">Servidor</p>
+            <p>192.168.10.10</p>
+            <p className="mt-4 mb-2 font-semibold text-purple-400">Dominio</p>
+            <p>inacap.local</p>
           </div>
         </nav>
 
-        {/* Contenido Principal */}
-        <main className="flex-1 p-8 overflow-auto">
-          <div className="max-w-6xl">
-            {/* Breadcrumb */}
-            <div className="mb-6 flex items-center gap-2 text-sm">
-              <span className="text-slate-400">Wiki</span>
+        <main className="flex-1 p-6 lg:p-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-6 flex items-center gap-2 text-sm text-slate-400">
+              <span>Wiki</span>
               <span className="text-purple-400">/</span>
-              <span className="text-purple-300 font-semibold">{seccionActualObj?.nombre}</span>
+              <span className="font-semibold text-purple-300">{seccionActual?.nombre}</span>
             </div>
 
-            {/* Título de la sección */}
-            <div className="mb-8 pb-6 border-b border-purple-900/30">
-              <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-purple-500 mb-2">
-                {seccionActualObj?.nombre}
+            <div className="mb-8 border-b border-purple-900/30 pb-6">
+              <h2 className="mb-2 text-4xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-purple-500 bg-clip-text">
+                {seccionActual?.nombre}
               </h2>
-              <p className="text-slate-400">{seccionActualObj?.subtitulo}</p>
+              <p className="text-slate-400">{seccionActual?.subtitulo}</p>
             </div>
 
-            {/* Contenido de la sección */}
-            <div className="bg-slate-900/50 rounded-lg border border-purple-900/20 p-8 min-h-96">
+            <div className="min-h-[28rem] rounded-xl border border-purple-900/20 bg-slate-900/50 p-6 shadow-2xl shadow-black/20">
               {renderizarContenido()}
             </div>
           </div>
@@ -175,4 +176,3 @@ function App() {
 }
 
 export default App;
-
