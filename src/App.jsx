@@ -6,7 +6,7 @@ import ActiveDirectory from './components/ActiveDirectory';
 import ClienteDominio from './components/ClienteDominio';
 import ServiciosRed from './components/ServiciosRed';
 import PoliticasGrupo from './components/PoliticasGrupo';
-import BitacoraIA from './components/BitacoraA';
+import BitacoraIA from './components/BitacoraIA';
 
 export default function App() {
   const [seccionActiva, setSeccionActiva] = useState('inicio');
@@ -30,7 +30,7 @@ export default function App() {
       case 'parteC': return <ClienteDominio />;
       case 'parteD': return <ServiciosRed />;
       case 'parteF': return <PoliticasGrupo />;
-      case 'bitacora': return <BitacoraA />;
+      case 'bitacora': return <BitacoraIA />;
       default: return <Inicio />;
     }
   };
