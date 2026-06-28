@@ -1,110 +1,70 @@
-import { BookOpen, Plus, AlertCircle } from 'lucide-react';
+import React from 'react';
+import { BookOpen, AlertCircle, Code, Settings, Layers } from 'lucide-react';
 
 export default function BitacoraIA() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fadeIn">
+      {/* Alerta de Propósito */}
       <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 flex gap-3 items-start">
         <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-        <p className="text-blue-300 text-sm">
-          En esta sección se documentan todos los prompts y consultas realizadas a la IA para la construcción y diseño de este wiki.
+        <p className="text-sm text-blue-300">
+          En esta sección se documentan de forma cronológica los prompts, instrucciones y consultas técnicas realizadas a la Inteligencia Artificial para el co-diseño, reestructuración y optimización de esta plataforma Wiki.
         </p>
       </div>
 
+      {/* Propósito de la Bitácora */}
       <div className="bg-gradient-to-br from-purple-900/30 to-slate-900/30 border border-purple-500/30 rounded-lg p-6 mb-8">
         <h3 className="text-2xl font-bold text-purple-300 mb-4 flex items-center gap-2">
           <BookOpen className="w-6 h-6" />
           Propósito de la Bitácora
         </h3>
         <p className="text-slate-300 leading-relaxed">
-          Esta bitácora mantiene un registro detallado de cada prompt e instrucción enviados a la IA durante el desarrollo del proyecto.
-          Permite rastrear el proceso de creación, decisiones de diseño y evolución de la aplicación.
+          Esta bitácora mantiene un registro detallado de cada instrucción enviada a la IA durante el desarrollo del proyecto. Permite rastrear el proceso de creación, la toma de decisiones de diseño, la solución de errores de compilación y la evolución de la estructura de navegación de la aplicación.
         </p>
       </div>
 
-      <div className="space-y-4">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-2xl font-bold text-purple-300">Historial de Prompts</h3>
-          <div className="flex items-center gap-2 text-purple-400">
-            <Plus className="w-5 h-5" />
-            <span className="text-sm">Añadir nueva entrada</span>
+      {/* Historial de Prompts */}
+      <div className="space-y-6">
+        <h3 className="text-2xl font-bold text-purple-300 border-b border-purple-900/30 pb-2">Historial de Prompts</h3>
+
+        {/* ENTRADA 1 */}
+        <div className="p-6 bg-slate-900/60 rounded-xl border border-purple-900/20 space-y-3">
+          <div className="flex items-center gap-2 text-purple-400 font-semibold text-sm">
+            <Settings className="w-4 h-4" /> ENTRADA 1: Estructuración Base del Menú y Archivos Markdown
           </div>
+          <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 font-mono text-xs text-slate-300 whitespace-pre-wrap">
+            "Necesito organizar el menú lateral de mi Wiki en VS Code. Actualmente tengo archivos en 'docs_paesca' pero quiero que los nombres se desplieguen de forma limpia y ordenada. ¿Cómo puedo enlazar los archivos .md o estructurar los títulos para que el menú de la aplicación React refleje las partes de mi trabajo de sistemas operativos?"
+          </div>
+          <p className="text-xs text-slate-400">
+            <strong>Impacto:</strong> Se definió la estrategia de navegación del proyecto y se identificó si la aplicación utilizaba enrutamiento dinámico basado en Markdown o un mapeo estático de componentes dentro del ecosistema de React.
+          </p>
         </div>
 
-        {/* Plantilla de entrada */}
-        <div className="bg-slate-800/50 border border-purple-500/30 rounded-lg p-6">
-          <div className="space-y-4">
-            <div>
-              <h4 className="text-lg font-semibold text-purple-300 mb-2">Entrada #1: Creación del Componente Principal</h4>
-              <div className="space-y-2 text-sm text-slate-300">
-                <div>
-                  <span className="text-purple-400">Fecha:</span> [Añadir fecha]
-                </div>
-                <div>
-                  <span className="text-purple-400">Prompt:</span>
-                  <div className="bg-slate-900/50 rounded px-3 py-2 mt-1 font-mono text-xs text-slate-300">
-                    "Crear el componente principal App.jsx con menú lateral, contenedor oscuro y estilos morados..."
-                  </div>
-                </div>
-                <div>
-                  <span className="text-purple-400">Resultado:</span>
-                  <p className="text-slate-400 mt-1">Se creó la estructura base con React, Tailwind CSS y Lucide icons</p>
-                </div>
-                <div>
-                  <span className="text-purple-400">Notas:</span>
-                  <p className="text-slate-400 mt-1">Componente listo para importar módulos específicos</p>
-                </div>
-              </div>
-            </div>
+        {/* ENTRADA 2 */}
+        <div className="p-6 bg-slate-900/60 rounded-xl border border-purple-900/20 space-y-3">
+          <div className="flex items-center gap-2 text-purple-400 font-semibold text-sm">
+            <Code className="w-4 h-4" /> ENTRADA 2: Solución de Conflictos de Despliegue en Vercel
           </div>
+          <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 font-mono text-xs text-slate-300 whitespace-pre-wrap">
+            "Tengo una duda con los deployments en Vercel. Cada vez que hago un commit y push desde VS Code veo que se genera una nueva versión en producción o da error. ¿Tengo que meterme siempre desde el último enlace generado para ver la página web actual o el link principal se actualiza solo? Explícame cómo manejar los cambios masivos."
+          </div>
+          <p className="text-xs text-slate-400">
+            <strong>Impacto:</strong> Comprensión del ciclo de integración continua (CI/CD). Optimización del flujo de trabajo local en Git, permitiendo agrupar múltiples cambios en un único commit para evitar saturar el historial de compilación de Vercel.
+          </p>
         </div>
 
-        {/* Plantilla vacía para nuevas entradas */}
-        <div className="bg-slate-800/30 border-2 border-dashed border-purple-500/40 rounded-lg p-6 text-center">
-          <div className="space-y-3">
-            <BookOpen className="w-8 h-8 text-purple-400/50 mx-auto" />
-            <h4 className="text-purple-300 font-semibold">Plantilla para Nueva Entrada</h4>
-            <div className="text-sm text-slate-400 bg-slate-900/30 rounded p-4 font-mono">
-              <div>## Entrada #[N]: [Título]</div>
-              <div>**Fecha:** YYYY-MM-DD</div>
-              <div>**Prompt:**</div>
-              <div>```</div>
-              <div>[Contenido del prompt aquí]</div>
-              <div>```</div>
-              <div>**Resultado:**</div>
-              <div>[Descripción del resultado]</div>
-              <div>**Notas:**</div>
-              <div>[Observaciones adicionales]</div>
-            </div>
+        {/* ENTRADA 3 */}
+        <div className="p-6 bg-slate-900/60 rounded-xl border border-purple-900/20 space-y-3">
+          <div className="flex items-center gap-2 text-purple-400 font-semibold text-sm">
+            <Layers className="w-4 h-4" /> ENTRADA 3: Reestructuración de App.jsx y Separación de Secciones (DHCP e Integración)
           </div>
+          <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 font-mono text-xs text-slate-300 whitespace-pre-wrap">
+            "El archivo App.jsx tiene un código muy grande y me da miedo romper la aplicación si borro algo. Necesito modificar el arreglo de 'secciones' para agregar una octava sección, ya que debo separar la Parte D (DHCP) de la Parte E (Cliente: incorporación al dominio) con sus respectivos nombres y subtítulos académicos según la pauta."
+          </div>
+          <p className="text-xs text-slate-400">
+            <strong>Impacto:</strong> Reconfiguración exitosa del estado global de navegación de la Wiki, actualizando los esquemas de renderizado condicional (`switch-case`) e inyectando las propiedades semánticas correctas para cada módulo académico sin alterar el diseño base.
+          </p>
         </div>
-      </div>
-
-      <div className="bg-slate-800/50 border border-purple-500/30 rounded-lg p-6">
-        <h3 className="text-xl font-bold text-purple-300 mb-4">Categorías de Prompts</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-slate-900/50 rounded p-4">
-            <h4 className="text-purple-400 font-semibold mb-2">Diseño y Interfaz</h4>
-            <p className="text-slate-400 text-sm">Prompts relacionados con la UI/UX y estilos visuales</p>
-          </div>
-          <div className="bg-slate-900/50 rounded p-4">
-            <h4 className="text-purple-400 font-semibold mb-2">Funcionalidad</h4>
-            <p className="text-slate-400 text-sm">Prompts para características y lógica de la aplicación</p>
-          </div>
-          <div className="bg-slate-900/50 rounded p-4">
-            <h4 className="text-purple-400 font-semibold mb-2">Contenido Educativo</h4>
-            <p className="text-slate-400 text-sm">Prompts para documentación y contenido de módulos</p>
-          </div>
-          <div className="bg-slate-900/50 rounded p-4">
-            <h4 className="text-purple-400 font-semibold mb-2">Optimización</h4>
-            <p className="text-slate-400 text-sm">Prompts para mejoras y refactorización de código</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
-        <p className="text-green-300 text-sm">
-          <strong>Tip:</strong> Mantener esta bitácora actualizada ayuda a entender el proceso de desarrollo y facilita futuras referencias o modificaciones.
-        </p>
       </div>
     </div>
   );
