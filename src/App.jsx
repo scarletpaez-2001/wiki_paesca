@@ -30,39 +30,45 @@ function App() {
     },
     {
       id: 'basica',
-      nombre: '2.1.1 Configuración Básica',
+      nombre: 'Parte A: Inst. y Conf. Servidor DC01',
       icono: Server,
-      subtitulo: 'Servidor SRV-DC01',
+      subtitulo: 'Configuración básica',
     },
     {
       id: 'activedirectory',
-      nombre: '2.1.2 Active Directory',
+      nombre: 'Parte B: Active Directory + DNS',
       icono: Users,
-      subtitulo: 'Dominio inacap.local',
+      subtitulo: 'Roles principales',
     },
     {
       id: 'cliente',
-      nombre: '2.1.3 Cliente Dominio',
+      nombre: 'Parte C: Objetos del Dominio',
       icono: Shield,
+      subtitulo: 'Unidades Organizativas (OU)',
+    },
+    {
+      id: 'dhcp',
+      nombre: 'Parte D: DHCP',
+      icono: Network,
+      subtitulo: 'Servicios de red dinámicos',
+    },
+    {
+      id: 'integracion',
+      nombre: 'Parte E: Cliente: incorporación al dominio',
+      icono: Terminal,
       subtitulo: 'Unión de PC01',
     },
     {
-      id: 'servicios',
-      nombre: '2.1.4 Servicios de Red',
-      icono: Network,
-      subtitulo: 'DNS y DHCP',
-    },
-    {
       id: 'gpo',
-      nombre: '2.1.5 Políticas de Grupo',
+      nombre: 'Parte F: Políticas de Grupo',
       icono: Key,
-      subtitulo: 'GPO',
+      subtitulo: 'Administración de GPO',
     },
     {
       id: 'bitacora',
       nombre: 'Bitácora de IA',
       icono: BookOpen,
-      subtitulo: 'Prompts utilizados',
+      subtitulo: 'Prompts de co-creación',
     },
   ];
 
@@ -76,8 +82,10 @@ function App() {
         return <ActiveDirectory />;
       case 'cliente':
         return <ClienteDominio />;
-      case 'servicios':
-        return <ServiciosRed />;
+      case 'dhcp':
+        return <ServiciosRed />; // Aquí usamos el componente de red para el DHCP
+      case 'integracion':
+        return <ClienteDominio />; // Usamos temporalmente este para la integración, puedes adaptarlo después
       case 'gpo':
         return <PoliticasGrupo />;
       case 'bitacora':
@@ -154,12 +162,12 @@ function App() {
           <div className="mx-auto max-w-6xl">
             <div className="mb-6 flex items-center gap-2 text-sm text-slate-400">
               <span>Wiki</span>
-              <span className="text-purple-400">/</span>
+              <span>/</span>
               <span className="font-semibold text-purple-300">{seccionActual?.nombre}</span>
             </div>
 
             <div className="mb-8 border-b border-purple-900/30 pb-6">
-              <h2 className="mb-2 text-4xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-purple-500 bg-clip-text">
+              <h2 className="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-purple-500 bg-clip-text">
                 {seccionActual?.nombre}
               </h2>
               <p className="text-slate-400">{seccionActual?.subtitulo}</p>
