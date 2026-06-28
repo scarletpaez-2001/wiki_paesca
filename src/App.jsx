@@ -1,186 +1,124 @@
-import { useState } from 'react';
-import {
-  BookOpen,
-  Home,
-  Key,
-  Network,
-  Server,
-  Shield,
-  Terminal,
-  Users,
-} from 'lucide-react';
-
+import React, { useState } from 'react';
+import { Menu, X, BookOpen, Layers, Cpu, Shield, Users, Laptop, Lock } from 'lucide-react';
 import Inicio from './components/Inicio';
 import ConfiguracionBasica from './components/ConfiguracionBasica';
 import ActiveDirectory from './components/ActiveDirectory';
 import ClienteDominio from './components/ClienteDominio';
 import ServiciosRed from './components/ServiciosRed';
 import PoliticasGrupo from './components/PoliticasGrupo';
-import BitacoraIA from './components/BitacoraIA';
+import BitacoraA from './components/BitacoraA';
 
-function App() {
+export default function App() {
   const [seccionActiva, setSeccionActiva] = useState('inicio');
+  const [menuAbierto, setMenuAbierto] = useState(false);
 
-  const secciones = [
-    {
-      id: 'inicio',
-      nombre: 'Inicio',
-      icono: Home,
-      subtitulo: 'Portada y topología',
-    },
-    {
-      id: 'basica',
-      nombre: 'Parte A: Inst. y Conf. Servidor DC01',
-      icono: Server,
-      subtitulo: 'Configuración básica',
-    },
-    {
-      id: 'activedirectory',
-      nombre: 'Parte B: Active Directory + DNS',
-      icono: Users,
-      subtitulo: 'Roles principales',
-    },
-    {
-      id: 'cliente',
-      nombre: 'Parte C: Objetos del Dominio',
-      icono: Shield,
-      subtitulo: 'Unidades Organizativas (OU)',
-    },
-    {
-      id: 'dhcp',
-      nombre: 'Parte D: DHCP',
-      icono: Network,
-      subtitulo: 'Servicios de red dinámicos',
-    },
-    {
-      id: 'integracion',
-      nombre: 'Parte E: Cliente: incorporación al dominio',
-      icono: Terminal,
-      subtitulo: 'Unión de PC01',
-    },
-    {
-      id: 'gpo',
-      nombre: 'Parte F: Políticas de Grupo',
-      icono: Key,
-      subtitulo: 'Administración de GPO',
-    },
-    {
-      id: 'bitacora',
-      nombre: 'Bitácora de IA',
-      icono: BookOpen,
-      subtitulo: 'Prompts de co-creación',
-    },
+  const menuItems = [
+    { id: 'inicio', label: 'Inicio', sub: 'Portada y topología', icon: <Layers className="w-4 h-4" /> },
+    { id: 'parteA', label: 'Parte A: Inst. Servidor', sub: 'Configuración básica', icon: <Cpu className="w-4 h-4" /> },
+    { id: 'parteB', label: 'Parte B: Active Directory', sub: 'Roles principales', icon: <Shield className="w-4 h-4" /> },
+    { id: 'parteC', label: 'Parte C: Objetos Dominio', sub: 'Unidades Organizativas', icon: <Users className="w-4 h-4" /> },
+    { id: 'parteD', label: 'Parte D: DHCP', sub: 'Servicios de red', icon: <Laptop className="w-4 h-4" /> },
+    { id: 'parteF', label: 'Parte F: GPO', sub: 'Administración de directivas', icon: <Lock className="w-4 h-4" /> },
+    { id: 'bitacora', label: 'Bitácora de IA', sub: 'Prompts de co-creación', icon: <BookOpen className="w-4 h-4" /> },
   ];
 
-  const renderizarContenido = () => {
+  const renderContenido = () => {
     switch (seccionActiva) {
-      case 'inicio':
-        return <Inicio />;
-      case 'basica':
-        return <ConfiguracionBasica />;
-      case 'activedirectory':
-        return <ActiveDirectory />;
-      case 'cliente':
-        return <ClienteDominio />;
-      case 'dhcp':
-        return <ServiciosRed />; // Aquí usamos el componente de red para el DHCP
-      case 'integracion':
-        return <ClienteDominio />; // Usamos temporalmente este para la integración, puedes adaptarlo después
-      case 'gpo':
-        return <PoliticasGrupo />;
-      case 'bitacora':
-        return <BitacoraIA />;
-      default:
-        return <Inicio />;
+      case 'inicio': return <Inicio />;
+      case 'parteA': return <ConfiguracionBasica />;
+      case 'parteB': return <ActiveDirectory />;
+      case 'parteC': return <ClienteDominio />;
+      case 'parteD': return <ServiciosRed />;
+      case 'parteF': return <PoliticasGrupo />;
+      case 'bitacora': return <BitacoraA />;
+      default: return <Inicio />;
     }
   };
 
-  const seccionActual = secciones.find((item) => item.id === seccionActiva);
+  const cambiarSeccion = (id) => {
+    setSeccionActiva(id);
+    setMenuAbierto(false); // Cierra el menú al hacer clic en el celular
+  };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="sticky top-0 z-50 border-b border-purple-900/30 bg-slate-900/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Terminal className="h-8 w-8 text-purple-400" strokeWidth={2} />
-            <div>
-              <h1 className="text-2xl font-bold text-purple-300">Wiki PAESCA</h1>
-              <p className="text-sm text-slate-400">Sistemas Operativos</p>
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-slate-400">Sección activa</p>
-            <p className="text-lg font-semibold text-purple-300">{seccionActual?.nombre}</p>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-slate-950 text-slate-50 flex flex-col md:flex-row relative">
+      
+      {/* BOTÓN FLOTANTE PARA CELULAR */}
+      <button 
+        onClick={() => setMenuAbierto(!menuAbierto)}
+        className="md:hidden fixed top-4 right-4 z-50 bg-purple-600 hover:bg-purple-700 p-2.5 rounded-full shadow-lg border border-purple-400 text-white transition-all"
+        aria-label="Abrir menú"
+      >
+        {menuAbierto ? <X className="w-6 pipe h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
 
-      <div className="flex">
-        <nav className="sticky top-20 hidden min-h-screen w-72 border-r border-purple-900/30 bg-slate-900/70 p-6 lg:block">
-          <div className="space-y-3">
-            {secciones.map((seccion) => {
-              const Icono = seccion.icono;
-              const activo = seccionActiva === seccion.id;
+      {/* MENÚ LATERAL (RESPONSIVO) */}
+      <aside className={`
+        fixed md:sticky top-0 left-0 z-40
+        w-72 h-screen bg-slate-900 border-r border-purple-900/30 p-6 
+        flex flex-col justify-between transition-transform duration-300
+        ${menuAbierto ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
+        <div className="space-y-6">
+          <div className="border-b border-purple-900/20 pb-4">
+            <h1 className="text-2xl font-black text-purple-400 tracking-wider">Wiki PAESCA</h1>
+            <p className="text-xs text-slate-400 font-medium">Sistemas Operativos • INACAP</p>
+          </div>
 
-              return (
-                <button
-                  key={seccion.id}
-                  type="button"
-                  onClick={() => setSeccionActiva(seccion.id)}
-                  className={`flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition-all duration-200 ${
-                    activo
-                      ? 'border-purple-500 bg-purple-900/50 shadow-lg shadow-purple-500/20'
-                      : 'border-transparent bg-slate-900/40 hover:border-purple-600/30 hover:bg-purple-900/30'
-                  }`}
-                >
-                  <Icono
-                    className={`h-5 w-5 flex-shrink-0 ${
-                      activo ? 'text-purple-300' : 'text-purple-400 group-hover:text-purple-300'
-                    }`}
-                    strokeWidth={2}
-                  />
-                  <div className="min-w-0 flex-1">
-                    <p className={`text-sm font-semibold ${activo ? 'text-purple-200' : 'text-slate-200'}`}>
-                      {seccion.nombre}
-                    </p>
-                    <p className="truncate text-xs text-slate-500">{seccion.subtitulo}</p>
+          <nav className="space-y-1.5 overflow-y-auto max-h-[70vh] pr-1">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => cambiarSeccion(item.id)}
+                className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all ${
+                  seccionActiva === item.id
+                    ? 'bg-purple-600 text-white font-bold shadow-md shadow-purple-900/40'
+                    : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
+                }`}
+              >
+                <div className={`mt-0.5 p-1 rounded-lg ${seccionActiva === item.id ? 'bg-purple-500' : 'bg-slate-800'}`}>
+                  {item.icon}
+                </div>
+                <div>
+                  <div className="text-sm leading-tight">{item.label}</div>
+                  <div className={`text-[10px] font-normal ${seccionActiva === item.id ? 'text-purple-200' : 'text-slate-500'}`}>
+                    {item.sub}
                   </div>
-                </button>
-              );
-            })}
+                </div>
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        <div className="border-t border-purple-900/20 pt-4 text-[11px] text-slate-500 text-center font-mono">
+          Desarrollado por Scarlet Páez
+        </div>
+      </aside>
+
+      {/* FONDO OSCURO CUANDO EL MENÚ ESTÁ ABIERTO EN CELULAR */}
+      {menuAbierto && (
+        <div 
+          onClick={() => setMenuAbierto(false)}
+          className="fixed inset-0 bg-black/60 z-30 md:hidden backdrop-blur-sm"
+        />
+      )}
+
+      {/* CONTENIDO PRINCIPAL */}
+      <main className="flex-1 p-4 md:p-8 pt-16 md:pt-8 w-full max-w-7xl mx-auto overflow-x-hidden">
+        <header className="mb-6 flex justify-between items-center border-b border-purple-900/10 pb-4">
+          <div>
+            <span className="text-xs font-mono text-purple-500">Wiki / {menuItems.find(i => i.id === seccionActiva)?.label}</span>
+            <h2 className="text-3xl font-black text-slate-100 tracking-tight mt-1">
+              {menuItems.find(i => i.id === seccionActiva)?.label}
+            </h2>
           </div>
+        </header>
 
-          <div className="mt-12 border-t border-purple-900/30 pt-6 text-center text-xs text-slate-500">
-            <p className="mb-2 font-semibold text-purple-400">Servidor</p>
-            <p>192.168.10.10</p>
-            <p className="mt-4 mb-2 font-semibold text-purple-400">Dominio</p>
-            <p>inacap.local</p>
-          </div>
-        </nav>
+        <div className="mt-4">
+          {renderContenido()}
+        </div>
+      </main>
 
-        <main className="flex-1 p-6 lg:p-8">
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-6 flex items-center gap-2 text-sm text-slate-400">
-              <span>Wiki</span>
-              <span>/</span>
-              <span className="font-semibold text-purple-300">{seccionActual?.nombre}</span>
-            </div>
-
-            <div className="mb-8 border-b border-purple-900/30 pb-6">
-              <h2 className="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-purple-500 bg-clip-text">
-                {seccionActual?.nombre}
-              </h2>
-              <p className="text-slate-400">{seccionActual?.subtitulo}</p>
-            </div>
-
-            <div className="min-h-[28rem] rounded-xl border border-purple-900/20 bg-slate-900/50 p-6 shadow-2xl shadow-black/20">
-              {renderizarContenido()}
-            </div>
-          </div>
-        </main>
-      </div>
     </div>
   );
 }
-
-export default App;
