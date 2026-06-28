@@ -6,7 +6,7 @@ import ActiveDirectory from './components/ActiveDirectory';
 import ClienteDominio from './components/ClienteDominio';
 import ServiciosRed from './components/ServiciosRed';
 import PoliticasGrupo from './components/PoliticasGrupo';
-import BitacoraA from './components/BitacoraA';
+import BitacoraIA from './components/BitacoraA';
 
 export default function App() {
   const [seccionActiva, setSeccionActiva] = useState('inicio');
