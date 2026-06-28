@@ -1,16 +1,12 @@
-import { Server, Network, Settings, AlertCircle } from 'lucide-react';
+import React from 'react';
+import { Server, Network, Settings, Image } from 'lucide-react';
 
 export default function ConfiguracionBasica() {
   return (
-    <div className="space-y-8">
-      <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 flex gap-3 items-start">
-        <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-        <p className="text-blue-300 text-sm">
-          En esta sección se documenta la configuración inicial del servidor de dominio SRV-DC01
-        </p>
-      </div>
-
+    <div className="space-y-8 animate-fadeIn">
+      {/* Grilla de Especificaciones y Red */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {/* Especificaciones del Servidor */}
         <div className="bg-slate-800/50 border border-purple-500/30 rounded-lg p-6">
           <h3 className="text-xl font-bold text-purple-300 mb-4 flex items-center gap-2">
             <Server className="w-5 h-5" />
@@ -31,11 +27,12 @@ export default function ConfiguracionBasica() {
             </div>
             <div>
               <span className="text-purple-400">Puerta de Enlace:</span>
-              <p className="font-mono text-slate-200">192.168.10.1</p>
+              <p className="font-mono text-slate-200">192.168.10.10</p>
             </div>
           </div>
         </div>
 
+        {/* Configuración de Red */}
         <div className="bg-slate-800/50 border border-purple-500/30 rounded-lg p-6">
           <h3 className="text-xl font-bold text-purple-300 mb-4 flex items-center gap-2">
             <Network className="w-5 h-5" />
@@ -62,54 +59,59 @@ export default function ConfiguracionBasica() {
         </div>
       </div>
 
+      {/* Sección de Pasos de Configuración */}
       <div className="bg-slate-800/50 border border-purple-500/30 rounded-lg p-6">
         <h3 className="text-xl font-bold text-purple-300 mb-4 flex items-center gap-2">
           <Settings className="w-5 h-5" />
           Pasos de Configuración
         </h3>
-        <div className="space-y-4">
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center h-8 w-8 rounded-full bg-purple-600 text-white text-sm font-bold">
-                1
-              </div>
+        <p className="text-slate-300 text-sm mb-6">
+          A continuación se presentan las evidencias del despliegue inicial del hipervisor, la asignación de recursos de hardware y la configuración base del sistema operativo Windows Server.
+        </p>
+
+        {/* CONTENEDOR DE IMÁGENES */}
+        <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-slate-950 p-3 rounded-xl border border-purple-900/40 shadow-inner">
+              <p className="text-xs font-semibold text-purple-400 mb-2 flex items-center gap-1">
+                <Image className="w-3.5 h-3.5" /> 1. Creación de la Máquina Virtual
+              </p>
+              <img src="/img_paesca/creacion_vm.png" alt="Creación VM" className="rounded-lg max-w-full h-auto mx-auto shadow-md border border-slate-800" />
             </div>
-            <div>
-              <h4 className="font-semibold text-purple-300">Configuración de IP Estática</h4>
-              <p className="text-slate-400 text-sm mt-1">Establecer la dirección IP 192.168.10.10 de manera permanente en el adaptador de red</p>
+            
+            <div className="bg-slate-950 p-3 rounded-xl border border-purple-900/40 shadow-inner">
+              <p className="text-xs font-semibold text-purple-400 mb-2 flex items-center gap-1">
+                <Image className="w-3.5 h-3.5" /> 2. Configuración Lógica de la VM
+              </p>
+              <img src="/img_paesca/config_vm.png" alt="Configuración VM" className="rounded-lg max-w-full h-auto mx-auto shadow-md border border-slate-800" />
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center h-8 w-8 rounded-full bg-purple-600 text-white text-sm font-bold">
-                2
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-purple-300">Instalación de Roles y Características</h4>
-              <p className="text-slate-400 text-sm mt-1">Instalar Active Directory, DNS y otros componentes necesarios</p>
-            </div>
+          <div className="bg-slate-950 p-4 rounded-xl border border-purple-900/40 shadow-inner">
+            <p className="text-xs font-semibold text-purple-400 mb-2 flex items-center gap-1">
+              <Image className="w-3.5 h-3.5" /> 3. Proceso de Instalación de Windows Server
+            </p>
+            <img src="/img_paesca/instalacion_server.png" alt="Instalación Server" className="rounded-lg max-w-full h-auto mx-auto shadow-md border border-slate-800" />
           </div>
 
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center h-8 w-8 rounded-full bg-purple-600 text-white text-sm font-bold">
-                3
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-slate-950 p-3 rounded-xl border border-purple-900/40 shadow-inner">
+              <p className="text-xs font-semibold text-purple-400 mb-2 flex items-center gap-1">
+                <Image className="w-3.5 h-3.5" /> 4. Configuración de Usuario Administrador
+              </p>
+              <img src="/img_paesca/usuario.png" alt="Usuario Admin" className="rounded-lg max-w-full h-auto mx-auto shadow-md border border-slate-800" />
             </div>
-            <div>
-              <h4 className="font-semibold text-purple-300">Validación de Conectividad</h4>
-              <p className="text-slate-400 text-sm mt-1">Verificar que el servidor pueda comunicarse con otros equipos de la red</p>
+            
+            <div className="bg-slate-950 p-3 rounded-xl border border-purple-900/40 shadow-inner">
+              <p className="text-xs font-semibold text-purple-400 mb-2 flex items-center gap-1">
+                <Image className="w-3.5 h-3.5" /> 5. Cambio de Nombre del Servidor (SRV-DC01)
+              </p>
+              <img src="/img_paesca/cambio_nombre.png" alt="Cambio Nombre Servidor" className="rounded-lg max-w-full h-auto mx-auto shadow-md border border-slate-800" />
             </div>
           </div>
         </div>
-      </div>
+        {/* FIN CONTENEDOR DE IMÁGENES */}
 
-      <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4">
-        <p className="text-yellow-300 text-sm">
-          <strong>Nota importante:</strong> La configuración correcta de la red es fundamental antes de proceder con la instalación de Active Directory.
-        </p>
       </div>
     </div>
   );
